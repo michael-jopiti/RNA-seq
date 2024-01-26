@@ -1,0 +1,7 @@
+sample	condition
+HOLO_1_1	Holoclonal
+HOLO_1_2	Holoclonal
+HOLO_1_5	Holoclonal
+PAR_1	Control
+PAR_2	Control
+PAR_3	Control
