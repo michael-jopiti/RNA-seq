@@ -1,0 +1,2 @@
+This directory is empty as it's only used to represent the presence of said directory on the cluster.
+The contet can be found at: /data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/SAM_BAM_GTF
