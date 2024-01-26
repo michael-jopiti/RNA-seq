@@ -1,0 +1,6 @@
+1_1.gtf
+1_2.gtf
+1_5.gtf
+P_1.gtf
+P_2.gtf
+P_3.gtf
