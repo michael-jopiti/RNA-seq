@@ -1,0 +1,6 @@
+load("/Users/michaeljopiti/A_SA-23/RNA-sequencing/RNA-seq_lncRNA/RNA-seq/BED/Human_logitModel.RData")
+test <- read.table(file="/Users/michaeljopiti/A_SA-23/RNA-sequencing/RNA-seq_lncRNA/RNA-seq/BED/potential_protein_coding.txt.dat",sep="\t",col.names=c("ID","mRNA","ORF","Fickett","Hexamer"))
+test$prob <- predict(mylogit,newdata=test,type="response")
+attach(test)
+output <- cbind("mRNA_size"=mRNA,"ORF_size"=ORF,"Fickett_score"=Fickett,"Hexamer_score"=Hexamer,"coding_prob"=test$prob)
+write.table(output,file="/Users/michaeljopiti/A_SA-23/RNA-sequencing/RNA-seq_lncRNA/RNA-seq/BED/potential_protein_coding.txt",quote=F,sep="\t",row.names=ID)
