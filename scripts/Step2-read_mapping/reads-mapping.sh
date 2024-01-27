@@ -9,7 +9,7 @@
 
 #####     #####     #####     #####     #####     #####     #####     #####     #####     #####     #####     #####
 #####                                                                                                         #####
-#####     using hisat2 command, assembly creation from the individual reads into a respectiva SAM file        #####
+#####     using hisat2 command, mapping of individual reads into a respectiva SAM file        #####
 #####                                                                                                         #####
 #####     #####     #####     #####     #####     #####     #####     #####     #####     #####     #####     #####
 

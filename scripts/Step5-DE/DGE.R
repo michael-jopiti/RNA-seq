@@ -21,14 +21,24 @@ s2c <- dplyr::mutate(s2c, path = expressionPath)
 ###             corrected version             ###
 
 #imported custom table with gene names, types, ... prepared on the cluster
-t2g <- read.csv("./expression/target_mapping.txt", header = FALSE) 
+t2g <- read.csv("../../expression/target_mapping.txt", header = FALSE) 
 colnames(t2g) <-  c("target_id", "gene_name", "gene_type")
+
+#more cores for faster analysis
+library(BiocParallel)
+num_cores <- 10  # Set the desired number of cores
+
+# Set up a parallel backend
+register(MulticoreParam(workers = num_cores))
 
 #preparation of sleuth object
 so <- sleuth_prep(s2c, target_mapping = t2g)
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_wt(so, 'conditionHoloclonal')
+
+#return to single core operations
+
 models(so)
 
 #create final table
