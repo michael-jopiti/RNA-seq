@@ -4,6 +4,8 @@ setwd("/Users/michaeljopiti/A_SA-23/RNA-sequencing/RNA-seq_lncRNA/RNA-seq/script
 
 #importing needed packages
 library(ggplot2)
+library(ggrepel)
+library(EnhancedVolcano)
 library(sleuth)
 
 #setting up positions for Holoclonal and Parental DGE files from Kallisto
@@ -24,21 +26,11 @@ s2c <- dplyr::mutate(s2c, path = expressionPath)
 t2g <- read.csv("../../expression/target_mapping.txt", header = FALSE) 
 colnames(t2g) <-  c("target_id", "gene_name", "gene_type")
 
-#more cores for faster analysis
-library(BiocParallel)
-num_cores <- 10  # Set the desired number of cores
-
-# Set up a parallel backend
-register(MulticoreParam(workers = num_cores))
-
 #preparation of sleuth object
 so <- sleuth_prep(s2c, target_mapping = t2g)
 so <- sleuth_fit(so, ~condition, 'full')
 so <- sleuth_fit(so, ~1, 'reduced')
 so <- sleuth_wt(so, 'conditionHoloclonal')
-
-#return to single core operations
-
 models(so)
 
 #create final table
@@ -48,8 +40,8 @@ known_genes_table <- result_table[!is.na(result_table$gene_type),]
 #reverse case, not known are represented by NA
 unknown_genes_table <- result_table[is.na(result_table$gene_type),]
 
-#significant genes are represented by a qval <= 0.05 (corrected pvalue under 5%)
-significant_genes <- dplyr::filter(result_table, qval <=0.05)
+#novel significant genes are represented by a qval <= 0.05 (corrected pvalue under 5%)
+significant_genes <- dplyr::filter(unknown_genes_table, qval <=0.05)
 head(significant_genes, 20)
 
 
