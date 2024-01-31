@@ -16,7 +16,7 @@
 
 module load UHTS/Analysis/samtools/1.10
 
-cd /data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA/SAM_BAM_GTF/BAMs
+cd /data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/SAM_BAM_GTF/BAMs
 
 for file in *_sorted.bam; do
     samtools index -@10 $file $file.bai

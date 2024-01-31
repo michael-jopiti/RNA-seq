@@ -15,8 +15,8 @@
 
 THREADS=$SLURM_CPUS_PER_TASK
 
-EXPRESSION=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA/expression
-TRANSCRIPTOME=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA/SAM_BAM_GTF/GTFs
+EXPRESSION=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/expression
+TRANSCRIPTOME=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/SAM_BAM_GTF/GTFs
 FASTQ=/data/courses/rnaseq_course/lncRNAs/fastq
 REFERENCES=/data/courses/rnaseq_course/lncRNAs/Project2/references
 

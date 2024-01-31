@@ -9,7 +9,7 @@
 
 #####     #####     #####     #####     #####     #####     #####     #####     #####     #####     #####     #####
 #####                                                                                                         #####
-#####     using hisat2 command, mapping of individual reads into a respectiva SAM file        #####
+#####     using hisat2 command, assembly creation from the individual reads into a respectiva SAM file        #####
 #####                                                                                                         #####
 #####     #####     #####     #####     #####     #####     #####     #####     #####     #####     #####     #####
 
@@ -20,8 +20,8 @@ mkdir -p Mapped
 WD=$pwd
 READS=/data/courses/rnaseq_course/lncRNAs/fastq
 THREADS=$SLURM_CPUS_PER_TASK
-INDEX=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA
-MAP=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA/SAM_BAM_GTF/SAMs
+INDEX=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/
+MAP=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/SAM_BAM_GTF/SAMs
 
 #Holoclones
 hisat2 -p $THREADS -x $INDEX/human_Genome -1 $READS/1_1_L3_R1_001_ij43KLkHk1vK.fastq.gz -2 $READS/1_1_L3_R2_001_qyjToP2TB6N7.fastq.gz -S $MAP/1_1.sam

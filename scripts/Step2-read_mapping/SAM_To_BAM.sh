@@ -15,7 +15,7 @@
 
 module load UHTS/Analysis/samtools/1.10;
 
-cd /data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA/SAM_BAM
+cd /data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/SAM_BAM_GTF/SAMs
 
 for file in *.sam ; do
     samtools view -bS $file -o ${file%.*}.bam

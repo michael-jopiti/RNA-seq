@@ -81,7 +81,7 @@ STEP 4 - QUANTIFICATION
 
 
 ---   ---   ---   ---   ---
-STEP 4 - INTEGRATIVVE ANALYSIS
+STEP 6 - INTEGRATIVE ANALYSIS
 
 - How many intergenic?
     wc -l intergenic_novel.bed

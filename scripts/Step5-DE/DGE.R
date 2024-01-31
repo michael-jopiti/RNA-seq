@@ -1,3 +1,9 @@
+
+
+###                         CODE RUNNED LOCALLY NOT ON THE CLUSTER !!!
+
+
+
 #setting up environment path (working directory and library path)
 setwd("/Users/michaeljopiti/A_SA-23/RNA-sequencing/RNA-seq_lncRNA/RNA-seq/scripts/Step5-DE")
 .libPaths("/Users/michaeljopiti/A_SA-23/RNA-sequencing/library")

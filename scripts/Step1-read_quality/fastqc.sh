@@ -7,10 +7,9 @@
 #SBATCH --mail-user=michael.jopiti@students.unibe.ch
 #SBATCH --mail-type=begin,end
 
-WD=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA
 FILES=/data/courses/rnaseq_course/lncRNAs/fastq/
 mkdir -p Fastqc
-FASTQC=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA/Fastqc
+FASTQC=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/Fastqc
  
 module load UHTS/Quality_control/fastqc/0.11.9
 

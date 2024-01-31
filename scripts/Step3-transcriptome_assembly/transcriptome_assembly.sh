@@ -14,7 +14,6 @@
 
 module load UHTS/Aligner/stringtie/1.3.3b
 
-TRANSCRIPTOME=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA/transcriptomeAssembly
 BAM=/data/courses/rnaseq_course/lncRNAs/Project1/users/mjopiti/RNA-seq_lncRNA/SAM_BAM_GTF/BAMs
 REFERENCES=/data/courses/rnaseq_course/lncRNAs/Project2/references/gencode.v44.annotation.gtf     
 
