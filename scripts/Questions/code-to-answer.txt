@@ -1,0 +1,94 @@
+To answer the several questions asked, I runned the following codes from the terminal:
+
+---   ---   ---   ---   ---
+STEP 1 - Qualiity and basic statistics
+
+Number of reads and quality have been read from HTML files produced by the FASTC pipeline.
+---   ---   ---   ---   ---
+
+
+
+---   ---   ---   ---   ---
+STEP 2 - Read Mapping
+
+Just read the output from the pipeline used (HISAT2), example for P1 and P2 is provided OutputP1P2.txt.
+---   ---   ---   ---   ---
+
+
+
+---   ---   ---   ---   ---
+STEP 3 - TRANSCRIPTOME ASSEMBLY
+
+- Number of transcripts:
+    awk '{if($3=="transcript") print}' merged.gtf | wc -l
+  #we just count the number of lines where "transcript" appears
+- Number of exons:
+    awk '{if($3=="exon") print}' merged.gtf | wc -l
+  #same as for transcripts, just exons
+- Number of genes:
+    awk '{if($3=="transcript") print $10}' merged.gtf | sort -u | wc -l
+  #same idea, just sorted per gene_id
+
+- Number of novel transcripts (novel = not annotated = no GENCODE ID = no ESN in the name)
+    awk '$3 == "transcript" && $12 !~ /^ENS/ {print $12}' merged.gtf | sort -u | wc -l
+  #same as for normal transcript but take only those which do not contain "ENS" (!~)
+
+- Number of novel transcripts (novel = not annotated = no GENCODE ID = no ESN in the name)
+    awk '$3 =="exon" {if($12!~"ENS") print}' merged.gtf | uniq | wc -l
+  #same as before but take exons
+
+- Number of single exon genes:
+    awk '{if($3=="transcript") print($10)}' merged.gtf | uniq -c | awk '$1=="1"' | wc -l
+  #uniq -c allows to store the count, if appeard only once, 1 is outputted and counted by wc -l
+
+- Number of single exon genes:
+    awk '{if($3=="exon") print($10)}' merged.gtf | uniq -c | awk '$1=="1"' | wc -l
+  #uniq -c allows to store the count, if appeard only once, 1 is outputted and counted by wc -l
+
+Results:
+Genes	                60108
+Transcripts 	        265742
+Exons	                1779751
+Novel Transcript    	13021
+Novel Exons	            131755
+Single Exon Transcript	38785
+Single Exon Gene    	22584
+
+---   ---   ---   ---   ---
+
+
+
+---   ---   ---   ---   ---
+STEP 4 - QUANTIFICATION
+(each step to be repeated for each sample directory)
+
+- TPM does in fact add up to 1e6? (Spoiler, yes)
+    awk -F '\t' '{sum+=$5}; END {print sum}' abundance.tsv
+
+- Number of transcript from abundance.tsv:
+    awk -F'\t' 'BEGIN{sum=-1} {if($4 > 0) sum+=1} END{print sum}' abundance.tsv
+
+- Number of novel transcripts (name contains MSTRG and not ENS):
+    awk -F'\t' 'BEGIN{sum=0} $1 ~ "MSTRG"  {if ($4>0) sum+=1} END{print sum}' abundance.tsv
+
+- Number of genes:
+    awk -F'\t' 'BEGIN{sum=0} $1 ~".1$" {if ($4>0) sum+=1} END{print sum}' abundance.tsv
+
+- Number of novel genes(name contains MSTRG and not ENS):
+    awk -F'\t' 'BEGIN{sum=0} $1 ~ "MSTRG" && $1 ~ "\.1$" {if ($4>0) sum+=1} END{print sum}' $sample/abundance.tsv
+---   ---   ---   ---   ---
+
+
+
+---   ---   ---   ---   ---
+STEP 4 - INTEGRATIVVE ANALYSIS
+
+- How many intergenic?
+    wc -l intergenic_novel.bed
+
+- how many non-coding? (runned locally because bc command not found on cluster)
+    echo "scale=3; ($(awk '{if($5 > 0.364) print}' potential_protein_coding.txt.dat | wc -l) / $(wc -l < novel_transcripts.bed) ) * 100" | bc
+
+- How good 5' (TSS) and 3' (TES) annotations are? (sliding window of 50) (always done locally because of bc)
+    echo "scale=5; $(wc -l < tss_overlap.bed)/$(wc -l < novel_transcripts.bed) * 100" | bc
+    echo "scale=5; $(wc -l < tes_overlap.bed)/$(wc -l < novel_transcripts.bed) * 100" | bc
